@@ -1,5 +1,5 @@
 import reflex as rx
-from .state import AuthState
+from ..state import AuthState
 
 
 def input_block(label: str, placeholder: str, on_change, input_type: str = "text") -> rx.Component:

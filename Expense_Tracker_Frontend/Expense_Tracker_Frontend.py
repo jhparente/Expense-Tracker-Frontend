@@ -1,7 +1,7 @@
 import reflex as rx
 
 # Import pages so that Reflex registers them during compilation
-from . import login, signup, dashboard
+from .pages import login, signup, dashboard
 
 @rx.page(route="/")
 def index() -> rx.Component:

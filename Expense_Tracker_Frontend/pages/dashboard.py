@@ -1,5 +1,5 @@
 import reflex as rx
-from .state import AuthState
+from ..state import AuthState
 
 
 def stat_card(title: str, value: str, subtitle: str) -> rx.Component:
