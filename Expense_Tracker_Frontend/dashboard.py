@@ -1,5 +1,5 @@
 import reflex as rx
-from ..state import AuthState
+from Expense_Tracker_Frontend.state import AuthState
 
 
 def stat_card(title: str, value: str, subtitle: str) -> rx.Component:
@@ -60,7 +60,25 @@ def category_row(category) -> rx.Component:
     )
 
 
-def navbar() -> rx.Component:
+def nav_link(label: str, href: str, active_label: str) -> rx.Component:
+    is_active = label == active_label
+    return rx.link(
+        rx.box(
+            rx.text(label, size="2", weight="medium", color="white" if is_active else "#94a3b8"),
+            padding="0.45rem 0.9rem",
+            border_radius="999px",
+            background="rgba(56, 189, 248, 0.2)" if is_active else "transparent",
+            border=
+                "1px solid rgba(56, 189, 248, 0.35)"
+                if is_active
+                else "1px solid transparent",
+            transition="all 0.2s ease",
+        ),
+        href=href,
+    )
+
+
+def navbar(active_label: str = "Dashboard") -> rx.Component:
     return rx.hstack(
         rx.hstack(
             rx.box(
@@ -71,12 +89,19 @@ def navbar() -> rx.Component:
             ),
             rx.vstack(
                 rx.text("Expense Tracker", size="2", color="#94a3b8"),
-                rx.text("Dashboard", weight="bold", color="white"),
+                rx.text(active_label, weight="bold", color="white"),
                 spacing="1",
                 align_items="start",
             ),
             spacing="3",
             align_items="center",
+        ),
+        rx.spacer(),
+        rx.hstack(
+            nav_link("Dashboard", "/dashboard", active_label),
+            nav_link("Expenses", "/expenses", active_label),
+            nav_link("Add Expense", "/expenses/new", active_label),
+            spacing="2",
         ),
         rx.spacer(),
         rx.hstack(
@@ -123,13 +148,21 @@ def dashboard() -> rx.Component:
             background="radial-gradient(circle, rgba(56, 189, 248, 0.25), rgba(56, 189, 248, 0))",
             filter="blur(12px)",
         ),
-        navbar(),
+        navbar("Dashboard"),
         rx.container(
             rx.vstack(
                 rx.grid(
                     stat_card("Total spent", AuthState.summary_total, "All time"),
                     stat_card("Transactions", AuthState.summary_count, "Recorded expenses"),
                     stat_card("Categories", AuthState.summary_categories_count, "Unique categories"),
+                    columns="3",
+                    spacing="4",
+                    width="100%",
+                ),
+                rx.grid(
+                    stat_card("Today", AuthState.period_day_total, "Total spent today"),
+                    stat_card("This week", AuthState.period_week_total, "Last 7 days"),
+                    stat_card("This month", AuthState.period_month_total, "Month to date"),
                     columns="3",
                     spacing="4",
                     width="100%",
@@ -187,8 +220,8 @@ def dashboard() -> rx.Component:
                 spacing="5",
                 width="100%",
             ),
-            max_width="1100px",
-            padding="2.5rem 1.5rem 4rem",
+            max_width="100%",
+            padding="2.5rem 3.5rem 4rem",
         ),
         min_height="100vh",
         background="linear-gradient(135deg, #0a1017 0%, #0f1c2c 45%, #0a1017 100%)",

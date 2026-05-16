@@ -1,5 +1,5 @@
 import reflex as rx
-from ..state import AuthState
+from Expense_Tracker_Frontend.state import AuthState
 
 
 def input_block(label: str, placeholder: str, on_change, input_type: str = "text") -> rx.Component:
@@ -27,25 +27,25 @@ def input_block(label: str, placeholder: str, on_change, input_type: str = "text
     )
 
 
-@rx.page(route="/login")
-def login_page() -> rx.Component:
+@rx.page(route="/signup")
+def signup_page() -> rx.Component:
     return rx.box(
         rx.box(
             position="absolute",
-            top="-120px",
-            left="-120px",
-            width="360px",
-            height="360px",
-            background="radial-gradient(circle, rgba(34, 211, 238, 0.35), rgba(34, 211, 238, 0))",
+            top="-140px",
+            left="-140px",
+            width="380px",
+            height="380px",
+            background="radial-gradient(circle, rgba(94, 234, 212, 0.35), rgba(94, 234, 212, 0))",
             filter="blur(8px)",
         ),
         rx.box(
             position="absolute",
             bottom="-160px",
-            right="-120px",
-            width="420px",
-            height="420px",
-            background="radial-gradient(circle, rgba(59, 130, 246, 0.35), rgba(59, 130, 246, 0))",
+            right="-140px",
+            width="460px",
+            height="460px",
+            background="radial-gradient(circle, rgba(56, 189, 248, 0.35), rgba(56, 189, 248, 0))",
             filter="blur(10px)",
         ),
         rx.center(
@@ -56,11 +56,11 @@ def login_page() -> rx.Component:
                             width="44px",
                             height="44px",
                             border_radius="14px",
-                            background="linear-gradient(135deg, #22d3ee, #3b82f6)",
+                            background="linear-gradient(135deg, #5eead4, #38bdf8)",
                         ),
                         rx.vstack(
                             rx.text("Expense Tracker", size="2", color="#94a3b8"),
-                            rx.heading("Welcome back", size="7", weight="bold", color="white"),
+                            rx.heading("Create an account", size="7", weight="bold", color="white"),
                             spacing="1",
                             align_items="start",
                         ),
@@ -68,24 +68,25 @@ def login_page() -> rx.Component:
                         align_items="center",
                     ),
                     rx.text(
-                        "Sign in to keep your expenses organized and in sync.",
+                        "Build your personal finance hub in minutes.",
                         color="#94a3b8",
                         size="3",
                     ),
-                    input_block("Email", "you@domain.com", AuthState.set_login_email),
-                    input_block("Password", "Your password", AuthState.set_login_password, "password"),
+                    input_block("Full name", "Jane Doe", AuthState.set_reg_name),
+                    input_block("Email", "you@domain.com", AuthState.set_reg_email),
+                    input_block("Password", "Create a password", AuthState.set_reg_password, "password"),
                     rx.button(
-                        "Log in",
-                        on_click=AuthState.login,
+                        "Create account",
+                        on_click=AuthState.register,
                         width="100%",
                         padding="0.9rem",
                         border_radius="14px",
-                        background="linear-gradient(90deg, #22d3ee, #3b82f6)",
+                        background="linear-gradient(90deg, #5eead4, #38bdf8)",
                         color="white",
                     ),
                     rx.text(
-                        "New here? ",
-                        rx.link("Create an account", href="/signup", color="#38bdf8"),
+                        "Already have an account? ",
+                        rx.link("Log in", href="/login", color="#38bdf8"),
                         color="#94a3b8",
                         size="2",
                     ),
@@ -108,7 +109,7 @@ def login_page() -> rx.Component:
             z_index="1",
         ),
         min_height="100vh",
-        background="linear-gradient(135deg, #0b0f1a 0%, #101827 45%, #0b0f1a 100%)",
+        background="linear-gradient(135deg, #0a1017 0%, #0f1c2c 45%, #0a1017 100%)",
         position="relative",
         overflow="hidden",
         font_family='"Space Grotesk", "Segoe UI", sans-serif',
