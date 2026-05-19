@@ -4,7 +4,7 @@ from datetime import date
 import reflex as rx
 import requests
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = "http://127.0.0.1:8000/api/v1"
 MAX_LOGIN_ATTEMPTS = 5
 LOGIN_COOLDOWN_SECONDS = 30
 DEFAULT_CATEGORIES = [
